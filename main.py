@@ -3,7 +3,7 @@
 import random
 from time import sleep
 
-# ANSI escape sequences as a dictionary
+# ANSI escape sequences
 ANSI = {
     'HIDE_CURSOR': '\033[?25l',
     'SHOW_CURSOR': '\033[?25h',
@@ -63,8 +63,7 @@ def main():
     print(ANSI['HIDE_CURSOR'])
     for _ in range(10):
         clear_screen()
-        colorized_tree = colorize_tree(get_tree())
-        print(colorized_tree)
+        print(colorize_tree(get_tree()))
         sleep(0.5)
 
     clear_screen()
