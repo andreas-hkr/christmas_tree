@@ -4,8 +4,8 @@
 - Run ```python3 main.py```
 
 ### Curl:
+- **NOTE:** It is *not* a good idea to run a script directly via curl without first reviewing the script.
 - Run ```curl https://raw.githubusercontent.com/andreas-hkr/christmas_tree/refs/heads/main/main.py | python3``` in a terminal
 
 
 
-**NOTE:** It is *not* a good idea to run a script directly via curl without first reviewing the script.
