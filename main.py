@@ -1,45 +1,56 @@
-import re
 import random
-import os
 from time import sleep
-
-
-COLORS = [
-    31,
-    33,
-    35,
-    36
-]
+from ansi import Ansi
 
 
 def get_tree():
-    tree = '\033[32m'
+    """Return a green tree template as a string."""
+    tree = Ansi.GREEN
     tree += r'''
-       X
+       *
       / \
      /o  \
     /_ o _\
-    /    o\  
-   / o  o  \  
-  /_     o _\ 
+    /    o\
+   / o  o  \
+  /_     o _\
   /  o   o  \
- /  o  o    o\ 
-/_____________\ 
+ /  o  o    o\
+/_____________\
       |||
 '''
+    tree += Ansi.RESET
     return tree
 
 
+def colorize_tree(tree):
+    """Return the tree string with ornaments and star colorized."""
+    tree_list = list(tree)
+    ornament_indices = [i for i, c in enumerate(tree) if c == 'o']
+    star_index = tree_list.index('*')
+
+    for i in ornament_indices:
+        tree_list[i] = f'{random.choice(Ansi.LIGHT_COLORS)}o{Ansi.GREEN}'
+    tree_list[star_index] = f'{Ansi.YELLOW}*{Ansi.GREEN}'
+
+    return ''.join(tree_list)
+
+
+def clear_screen():
+    """Clear the screen and place the cursor at the top left."""
+    print(Ansi.CLEAR_SCREEN + Ansi.CURSOR_HOME, end='')
+
+
 def main():
-    print("\033[?25l", flush=True)
-    for _ in range(5):
-        os.system('clear')
-        tree = get_tree()
-        tree = re.sub("o", lambda _: f'\033[{COLORS[random.randint(0, len(COLORS)-1)]}mo\033[32m', tree)
-        tree = re.sub("X", r'\033[33mX\033[32m', tree)
-        print(tree)
+    print(Ansi.HIDE_CURSOR)
+    for _ in range(10):
+        clear_screen()
+        colorized_tree = colorize_tree(get_tree())
+        print(colorized_tree)
         sleep(0.5)
-    print("\033[?25h", flush=True)
+
+    clear_screen()
+    print(Ansi.SHOW_CURSOR)
 
 
 if __name__ == '__main__':
