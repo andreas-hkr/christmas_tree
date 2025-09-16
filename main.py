@@ -1,3 +1,5 @@
+# Inspiration: https://www.youtube.com/watch?v=NENq-G2PsTo
+
 import random
 from time import sleep
 from ansi import Ansi
